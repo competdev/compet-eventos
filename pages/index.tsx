@@ -1,11 +1,18 @@
-import type { NextPage } from 'next'
+import type { NextPage } from "next";
+import Footer from "../components/Footer";
+import Form from "../components/Form";
 
 const Home: NextPage = () => {
   return (
-    <div>
-      <h1 className="text-3xl font-bold text-red-300">Hello World</h1>
-    </div>
-  )
-}
+    <>
+      <main>
+        <Form />
+      </main>
+      <footer>
+        <Footer />
+      </footer>
+    </>
+  );
+};
 
-export default Home
+export default Home;
