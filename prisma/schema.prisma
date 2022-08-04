@@ -29,8 +29,8 @@ model User {
   id    String  @id @default(auto()) @map("_id") @db.ObjectId
   name  String
   email String  @unique
-  data_nascimento @db.Date 
+  data_nascimento DateTime
   telefone String
   matricula String
-  presenca @db.Boolean 
+  presenca Boolean 
 }
