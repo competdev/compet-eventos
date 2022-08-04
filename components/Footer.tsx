@@ -1,6 +1,6 @@
 const Footer: React.FC = () => {
   return (
-    <div className="footer items-center bg-neutral p-4 text-neutral-content">
+    <footer className="footer mt-5 flex h-24 w-full items-center justify-center bg-neutral text-neutral-content">
       <div className="grid-flow-col items-center">
         <svg
           width="36"
@@ -50,7 +50,7 @@ const Footer: React.FC = () => {
           </svg>
         </a>
       </div>
-    </div>
+    </footer>
   );
 };
 
