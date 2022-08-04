@@ -1,6 +1,7 @@
 import { useForm, SubmitHandler } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import axios from "axios";
 
 enum Role {
   visitor = "visitor",
@@ -40,7 +41,7 @@ const Form: React.FC = () => {
   });
 
   const onSubmit: SubmitHandler<FormInput> = (data) => {
-    console.log(data);
+    axios.post("/api/form", data);
   };
 
   return (
