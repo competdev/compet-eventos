@@ -1,19 +1,9 @@
-import { useForm, SubmitHandler } from "react-hook-form";
+import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import axios from "axios";
-
-enum Role {
-  visitor = "visitor",
-  competitor = "competitor",
-}
-export interface FormInput {
-  name: String;
-  email: String;
-  cellphone: String;
-  registration: String;
-  role: Role;
-};
+import { FormInput } from "../types";
+import InputMask, { Props } from "react-input-mask";
 
 const schema = yup
   .object({
@@ -23,10 +13,10 @@ const schema = yup
       .string()
       .required("Insira seu número de celular com DDD")
       .matches(
-        /\(?\b([0-9]{2,3}|0((x|[0-9]){2,3}[0-9]{2}))\)?\s*[0-9]{4,5}[- ]*[0-9]{4}\b/,
+        /^\(?[1-9]{2}\)? ?(?:[2-8]|9[1-9])[0-9]{3}\-?[0-9]{4}$/,
         "Número de celular inválido"
       ),
-    registration: yup.string().required("Insira seu número de matrícula"),
+    registration: yup.string(),
     role: yup.string().required("Insira seu papel no evento"),
   })
   .required();
@@ -34,14 +24,17 @@ const schema = yup
 const Form: React.FC = () => {
   const {
     register,
+    control,
     handleSubmit,
     formState: { errors },
   } = useForm<FormInput>({
     resolver: yupResolver(schema),
   });
 
-  const onSubmit: SubmitHandler<FormInput> = (data) => {
-    axios.post("/api/form", data);
+  const onSubmit: SubmitHandler<FormInput> = async (data) => {
+    // console.log(data);
+    const res = await axios.post("/api/form", data);
+    console.log(res);
   };
 
   return (
@@ -79,11 +72,25 @@ const Form: React.FC = () => {
         <label className="label">
           <span className="label-text">Seu número de celular</span>
         </label>
-        <input
-          type="text"
-          placeholder="3199999999"
-          className="input input-bordered w-full"
-          {...register("cellphone")}
+        <Controller
+          name="cellphone"
+          control={control}
+          render={({ field: { onChange, value } }) => (
+            <InputMask
+              mask="(99) 99999-9999"
+              value={value}
+              onChange={onChange}
+              maskChar=" "
+            >
+              {(inputProps) => (
+                <input
+                  {...inputProps}
+                  type="tel"
+                  className="input input-bordered w-full"
+                />
+              )}
+            </InputMask>
+          )}
         />
         <p className="mt-2 text-error">{errors.cellphone?.message}</p>
       </div>
@@ -94,7 +101,7 @@ const Form: React.FC = () => {
         </label>
         <input
           type="text"
-          placeholder="Matrícula"
+          placeholder="20213007777"
           className="input input-bordered w-full"
           {...register("registration")}
         />
