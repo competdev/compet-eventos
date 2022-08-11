@@ -49,8 +49,6 @@ QRCode.toString(stringdata,{type:'terminal'},
   
     if(err) return console.log("error occurred") 
   
-    // Printing the generated code 
-    console.log(QRcode) 
 }) 
     
 // Converting the data into base64 
