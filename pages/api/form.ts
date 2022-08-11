@@ -30,42 +30,18 @@ export default async function handler(
         pass: "fgnhatcvvrdkvelq",
       },
     });
-let code = 0
-    
-    // Require the package 
-const QRCode = require('qrcode') 
-  
-// Creating the data 
-let data = { 
-    email: "formInput.email" 
-} 
-  
-// Converting the data into String format 
-let stringdata = JSON.stringify(data) 
-  
-// Print the QR code to terminal 
-QRCode.toString(stringdata,{type:'terminal'}, 
-                    function (err, QRcode) { 
-  
-    if(err) return console.log("error occurred") 
-  
-}) 
-    
-// Converting the data into base64 
-QRCode.toDataURL(stringdata, function (err, code) { 
-    if(err) return console.log("error occurred") 
-  
-    // Printing the code 
-    console.log(code) 
-})
+
+    // Converting the data into base64 
+    const image = await QRcode.toDataURL(user.id);
 
     let mailOptions = {
       from: "compet.eventos@gmail.com",
-      to: formInput.email,
+      to: user.email,
+      attachDataUrls: true,
       subject: `Confirmaçao Evento COMPET`,
-      html: code, //aqui vcs enviam o login do usuário.
+      html: '</br><img src="' + image + '">' // html body
     };
-    
+
     transporter.sendMail(mailOptions, function (err, info) {
       if (err) {
         res.json(err);
@@ -78,9 +54,4 @@ QRCode.toDataURL(stringdata, function (err, code) {
   } catch (error) {
     res.status(500).json({ error: "Erro na criação do usuário" });
   }
-
-
-
-
 }
-
