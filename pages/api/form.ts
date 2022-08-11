@@ -3,6 +3,8 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import { FormInput } from "../../types";
 import nodemailer from "nodemailer";
 import QRcode from "qrcode";
+import fs from "fs";
+import handlebars from "handlebars";
 
 export default async function handler(
   req: NextApiRequest,
@@ -31,15 +33,22 @@ export default async function handler(
       },
     });
 
-    // Converting the data into base64 
+    // Converting the data into base64
     const image = await QRcode.toDataURL(user.id);
+
+    const source = fs.readFileSync('utils/template.html', 'utf-8').toString();
+    const template = handlebars.compile(source);
+    const replacements = {
+      image: image,
+    };
+    const htmlToSend = template(replacements);
 
     let mailOptions = {
       from: "compet.eventos@gmail.com",
-      to: user.email,
+      to: 'guilhermeaugustodeoliveira66@gmail.com',
       attachDataUrls: true,
       subject: `Confirmaçao Evento COMPET`,
-      html: '</br><img src="' + image + '">' // html body
+      html: htmlToSend, 
     };
 
     transporter.sendMail(mailOptions, function (err, info) {
