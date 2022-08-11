@@ -44,7 +44,7 @@ const Form: React.FC = () => {
     >
       <div className="col-span-2 mb-5">
         <label className="label">
-          <span className="label-text">Seu nome</span>
+          <span className="text-white label-text">Seu nome</span>
         </label>
         <input
           type="text"
@@ -57,7 +57,7 @@ const Form: React.FC = () => {
 
       <div className="col-span-2 mb-5">
         <label className="label">
-          <span className="label-text">Seu email</span>
+          <span className="text-white label-text">Seu email</span>
         </label>
         <input
           type="email"
@@ -70,7 +70,7 @@ const Form: React.FC = () => {
 
       <div className="mb-5">
         <label className="label">
-          <span className="label-text">Seu número de celular</span>
+          <span className="text-white label-text">Seu número de celular</span>
         </label>
         <Controller
           name="cellphone"
@@ -97,7 +97,7 @@ const Form: React.FC = () => {
 
       <div className="mb-5">
         <label className="label">
-          <span className="label-text">Sua matrícula</span>
+          <span className="text-white label-text">Sua matrícula</span>
         </label>
         <input
           type="text"
@@ -110,7 +110,7 @@ const Form: React.FC = () => {
 
       <div className="col-span-2 mb-5">
         <label className="label">
-          <span className="label-text">Seu papel no evento</span>
+          <span className="text-white label-text">Seu papel no evento</span>
         </label>
         <select className="select select-bordered w-full" {...register("role")}>
           <option>Visitante</option>
