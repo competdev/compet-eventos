@@ -44,8 +44,8 @@ export default async function handler(
     const htmlToSend = template(replacements);
 
     let mailOptions = {
-      from: "compet.eventos@gmail.com",
-      to: 'guilhermeaugustodeoliveira66@gmail.com',
+      from: "Compet Eventos <compet.eventos@gmail.com>",
+      to: user.email,
       attachDataUrls: true,
       subject: `Confirmaçao Evento COMPET`,
       html: htmlToSend, 
