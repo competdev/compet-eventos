@@ -34,7 +34,7 @@ const Form: React.FC = () => {
   const onSubmit: SubmitHandler<FormInput> = async (data) => {
     // console.log(data);
     const res = await axios.post("/api/form", data);
-    console.log(res);
+    // console.log(res);
   };
 
   return (
@@ -44,7 +44,7 @@ const Form: React.FC = () => {
     >
       <div className="col-span-2 mb-5">
         <label className="label">
-          <span className="text-white label-text">Seu nome</span>
+          <span className="label-text text-white">Seu nome</span>
         </label>
         <input
           type="text"
@@ -57,7 +57,7 @@ const Form: React.FC = () => {
 
       <div className="col-span-2 mb-5">
         <label className="label">
-          <span className="text-white label-text">Seu email</span>
+          <span className="label-text text-white">Seu email</span>
         </label>
         <input
           type="email"
@@ -67,29 +67,22 @@ const Form: React.FC = () => {
         />
         <p className="mt-2 text-error">{errors.email?.message}</p>
       </div>
-
       <div className="mb-5">
         <label className="label">
-          <span className="text-white label-text">Seu número de celular</span>
+          <span className="label-text text-white">Seu número de celular</span>
         </label>
         <Controller
           name="cellphone"
           control={control}
-          render={({ field: { onChange, value } }) => (
+          render={({ field: { onChange, onBlur, ref } }) => (
             <InputMask
+              className="input input-bordered w-full"
               mask="(99) 99999-9999"
-              value={value}
+              onBlur={onBlur}
               onChange={onChange}
+              inputRef={ref}
               maskChar=" "
-            >
-              {(inputProps) => (
-                <input
-                  {...inputProps}
-                  type="tel"
-                  className="input input-bordered w-full"
-                />
-              )}
-            </InputMask>
+            />
           )}
         />
         <p className="mt-2 text-error">{errors.cellphone?.message}</p>
@@ -97,7 +90,7 @@ const Form: React.FC = () => {
 
       <div className="mb-5">
         <label className="label">
-          <span className="text-white label-text">Sua matrícula</span>
+          <span className="label-text text-white">Sua matrícula</span>
         </label>
         <input
           type="text"
@@ -110,7 +103,7 @@ const Form: React.FC = () => {
 
       <div className="col-span-2 mb-5">
         <label className="label">
-          <span className="text-white label-text">Seu papel no evento</span>
+          <span className="label-text text-white">Seu papel no evento</span>
         </label>
         <select className="select select-bordered w-full" {...register("role")}>
           <option>Visitante</option>
