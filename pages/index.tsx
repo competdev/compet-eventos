@@ -19,7 +19,7 @@ const Home: NextPage = () => {
       </Head>
       <div>
       <img
-          src={"https://i.ibb.co/gWK2w70/Inscri-es-OBR-3.png"}
+          src={"https://i.ibb.co/pLtgMzC/Inscricoes-Interpet.png"}
           alt="Logo do COMPET"
           width={400}
           height={300}

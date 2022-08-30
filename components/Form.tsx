@@ -39,25 +39,25 @@ const Form: React.FC = () => {
 
   return (
     <form
-      className="mt-3 grid grid-cols-2 gap-5"
+      className="mt-1 grid grid-cols-2 gap-5"
       onSubmit={handleSubmit(onSubmit)}
     >
-      <div className="col-span-2 mb-5">
+      <div className="col-span-3 mb-1">
         <label className="label">
-          <span className="label-text text-white">Seu nome</span>
+          <span className="label-text text-white text-xl">Nome</span>
         </label>
         <input
           type="text"
-          placeholder=""
+          placeholder="Nome Completo"
           className="input input-bordered w-full"
           {...register("name")}
         />
         <p className="mt-2 text-error">{errors.name?.message}</p>
       </div>
 
-      <div className="col-span-2 mb-5">
+      <div className="col-span-2 mb-1">
         <label className="label">
-          <span className="label-text text-white">Seu email</span>
+          <span className="label-text text-white text-xl">Email</span>
         </label>
         <input
           type="email"
@@ -67,15 +67,16 @@ const Form: React.FC = () => {
         />
         <p className="mt-2 text-error">{errors.email?.message}</p>
       </div>
-      <div className="mb-5">
+      <div className="mb-1">
         <label className="label">
-          <span className="label-text text-white">Seu número de celular</span>
+          <span className="label-text text-white text-xl">Celular</span>
         </label>
         <Controller
           name="cellphone"
           control={control}
           render={({ field: { onChange, onBlur, ref } }) => (
             <InputMask
+              placeholder="(99) 99999-9999"
               className="input input-bordered w-full"
               mask="(99) 99999-9999"
               onBlur={onBlur}
@@ -88,9 +89,9 @@ const Form: React.FC = () => {
         <p className="mt-2 text-error">{errors.cellphone?.message}</p>
       </div>
 
-      <div className="mb-5">
+      <div className="mb-1">
         <label className="label">
-          <span className="label-text text-white">Sua matrícula</span>
+          <span className="label-text text-white text-xl">Matrícula</span>
         </label>
         <input
           type="text"
@@ -101,9 +102,9 @@ const Form: React.FC = () => {
         <p className="mt-2 text-error">{errors.registration?.message}</p>
       </div>
 
-      <div className="col-span-2 mb-5">
+      <div className="col-span-2 mb-1">
         <label className="label">
-          <span className="label-text text-white">Seu papel no evento</span>
+          <span className="label-text text-white text-xl">Seu papel no evento</span>
         </label>
         <select className="select select-bordered w-full" {...register("role")}>
           <option>Visitante</option>
@@ -112,8 +113,8 @@ const Form: React.FC = () => {
         <p className="mt-2 text-error">{errors.role?.message}</p>
       </div>
 
-      <button className="btn btn-primary col-span-2" type="submit">
-        Enviar respostas
+      <button className="btn btn-primary col-span-3 mt-10 justify-self-center" type="submit">
+      ⠀⠀⠀⠀⠀⠀⠀⠀⠀Enviar respostas⠀⠀⠀⠀⠀⠀⠀⠀⠀
       </button>
     </form>
   );
