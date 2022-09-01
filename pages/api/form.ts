@@ -4,6 +4,7 @@ import { FormInput } from "../../types";
 import nodemailer from "nodemailer";
 import QRcode from "qrcode";
 import fs from "fs";
+import path from "path";
 import handlebars from "handlebars";
 
 export default async function handler(
@@ -28,7 +29,11 @@ export default async function handler(
       },
     });
 
-    let transporter = nodemailer.createTransport({
+    if (!user) {
+      return res.status(400).json({ message: "Erro ao criar usuário" });
+    }
+
+    const transporter = nodemailer.createTransport({
       service: "gmail",
       auth: {
         user: "compet.eventos@gmail.com",
@@ -39,14 +44,16 @@ export default async function handler(
     // Converting the data into base64
     const image = await QRcode.toDataURL(user.id);
 
-    const source = fs.readFileSync("utils/template.html", "utf-8").toString();
+    const filePath = path.resolve('./public', 'template.html');
+    const source = fs.readFileSync(filePath, "utf-8").toString();
     const template = handlebars.compile(source);
     const replacements = {
+      name: user.name,
       image: image,
     };
     const htmlToSend = template(replacements);
 
-    let mailOptions = {
+    const mailOptions = {
       from: "Compet Eventos <compet.eventos@gmail.com>",
       to: email,
       attachDataUrls: true,
@@ -54,17 +61,11 @@ export default async function handler(
       html: htmlToSend,
     };
 
-    transporter.sendMail(mailOptions, function (err, info) {
-      if (err) {
-        res.json(err);
-      } else {
-        res.json(info);
-      }
-    });
+    await transporter.sendMail(mailOptions);
 
-    res.status(200).json(user);
+    return res.status(200).json(user);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: "Erro na criação do usuário" });
+    return res.status(500).json({ error: "Erro na criação do usuário" });
   }
 }
