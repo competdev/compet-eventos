@@ -12,7 +12,8 @@ model User {
   name String
   email String @unique 
   cellphone String
-  registration String
-  role String
+  course String
+  pet String
+  unity String 
   presence Boolean
 }

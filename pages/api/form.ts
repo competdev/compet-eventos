@@ -14,14 +14,17 @@ export default async function handler(
   const formInput: FormInput = req.body;
 
   try {
+    const { cellphone, course, email, name, pet, unity } = formInput;
+
     const user = await prisma.user.create({
       data: {
-        cellphone: formInput.cellphone,
-        name: formInput.name,
-        email: formInput.email,
+        cellphone: cellphone,
+        name: name,
+        email: email,
+        course: course,
+        pet: pet,
+        unity: unity,
         presence: false,
-        registration: formInput.registration,
-        role: formInput.role,
       },
     });
 
@@ -36,7 +39,7 @@ export default async function handler(
     // Converting the data into base64
     const image = await QRcode.toDataURL(user.id);
 
-    const source = fs.readFileSync('utils/template.html', 'utf-8').toString();
+    const source = fs.readFileSync("utils/template.html", "utf-8").toString();
     const template = handlebars.compile(source);
     const replacements = {
       image: image,
@@ -45,10 +48,10 @@ export default async function handler(
 
     let mailOptions = {
       from: "Compet Eventos <compet.eventos@gmail.com>",
-      to: 'guilhermeaugustodeoliveira66@gmail.com',
+      to: email,
       attachDataUrls: true,
       subject: `Confirmaçao Evento COMPET`,
-      html: htmlToSend, 
+      html: htmlToSend,
     };
 
     transporter.sendMail(mailOptions, function (err, info) {
@@ -61,6 +64,7 @@ export default async function handler(
 
     res.status(200).json(user);
   } catch (error) {
+    console.error(error);
     res.status(500).json({ error: "Erro na criação do usuário" });
   }
 }
