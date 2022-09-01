@@ -37,8 +37,10 @@ const Form: React.FC = () => {
   const onSubmit: SubmitHandler<FormInput> = async (data) => {
     const res = await axios.post("/api/form", data);
     if (res.status == 200) {
+      console.log("Formulário enviado com sucesso");
       alert("Formulário enviado com sucesso!");
     } else {
+      console.log("Erro ao enviar formulário");
       alert("Erro ao enviar formulário");
     }
   };
