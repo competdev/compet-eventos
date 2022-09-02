@@ -53,9 +53,8 @@ const Form: React.FC = () => {
 
   return (
     <div className="flex flex-col mt-24">
-      <header className="font-bold text-center text-[#19DD39] text-xl mb-5">
-        <p>Workshop - Desenvolvimento de jogos da nova</p>
-        <p>geração para o ambiente de realidade virtual.</p>
+      <header className="font-bold text-center text-[#19DD39] text-xl mb-5 md:w-320 lg:w-480">
+        <p>Workshop - Desenvolvimento de jogos da nova geração para o ambiente de realidade virtual. </p>
       </header>
       <form
         className="grid grid-cols-3 gap-5"

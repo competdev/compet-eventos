@@ -2,7 +2,7 @@ import Image from "next/image";
 
 const Footer: React.FC = () => {
   return (
-    <footer className="footer flex mr-5 items-center justify-end text-neutral-content lg:absolute lg:top-0 lg:right-0">
+    <footer className="footer flex mr-5 items-center lg:justify-end lg:absolute lg:top-0 lg:right-0 justify-center ">
       <div className="grid-flow-col items-center">
         <Image
           src={"https://i.ibb.co/znT0mVK/Logo-Compet-White.png"}
